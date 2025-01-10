@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState("not set!");
-
+  const [email, setEmail] = useState('not set!');
   useEffect(() => {
-    // waiting the ZOHODESK extension loading using it
+    console.clear();
+
     ZOHODESK.extension.onload().then(() => {
       setLoading(false);
-      ZOHODESK.get("ticket.email").then((data) => {
-        setEmail(data["ticket.email"]);
+
+      ZOHODESK.get('account').then((data) => {});
+      ZOHODESK.get('ticket.email').then((data) => {
+        setEmail(data['ticket.email']);
       });
 
       /*	

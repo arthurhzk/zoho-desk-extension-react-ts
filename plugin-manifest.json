@@ -16,7 +16,7 @@
     ]
   },
   "cspDomains": {
-    "connect-src": []
+    "connect-src": ["https://dace-177-11-32-197.ngrok-free.app"]
   },
   "zohoAuthorisation": {},
   "connectors": [],
