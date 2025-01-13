@@ -1,74 +1,57 @@
 import { useEffect, useState } from 'react';
+import axios from "axios";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState('not set!');
+  const [orgID, setOrgID] = useState('');
+  const [clientID, setClientID] = useState('')
+  const [clientSecret, setClientSecret] = useState('')
+
+  const clickRequest = async () => {
+	setLoading(true)
+    try {
+      await axios.post("http://localhost:3002/credentials",{
+		data:{
+			orgID: orgID,
+			clientID: clientID,
+			clientSecret: clientSecret
+		}
+	  });
+    } catch (error) {
+      console.error("Erro ao fazer a requisição:");
+    } finally{
+		setLoading(false)
+	}
+  };
+
+  const handleClientID = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setClientID(event.target.value);
+  };
+
+  const handleClientSecret = (event: React.ChangeEvent<HTMLInputElement>)=>{
+	setClientSecret(event.target.value)
+  }
+
   useEffect(() => {
-    console.clear();
 
     ZOHODESK.extension.onload().then(() => {
       setLoading(false);
 
-      ZOHODESK.get('account').then((data) => {});
-      ZOHODESK.get('ticket.email').then((data) => {
-        setEmail(data['ticket.email']);
+   ZOHODESK.get('portal.id').then((data) => {
+    setOrgID(data['portal.id']);
       });
-
-      /*	
-					//To Set data in Desk UI Client
-					ZOHODESK.set('ticket.comment', { 'content': "Test comment" }).then(function (res) {
-						//response Handling
-					}).catch(function (err) {
-						//error Handling
-					});
-		
-					//Access Data Storage for an extension
-					//Get the saved data of an extension from data storage
-					ZOHODESK.get('database', { 'key': 'key1', 'queriableValue': 'value1' }).then(function (response) {
-						//response Handling
-					}).catch(function (err) {
-						//error Handling
-					})            
-					
-					//Save data in to data staorage
-					ZOHODESK.set('database', { 'key': 'key_1', 'value': { 'id': 123 }, 'queriableValue': 'value1' }).then(function (response) {
-						//response Handling
-					}).catch(function (err) {
-						//error Handling
-					})
-		
-					//Change tabs in ticket detailview
-					ZOHODESK.invoke('ROUTE_TO', 'ticket.attachments');
-		
-					//To Insert the content in the current opened reply editor from extension
-					ZOHODESK.invoke('Insert', 'ticket.replyEditor', { content: "<p>your content</p>" });
-		
-					//To listen to an event in desk
-					App.instance.on('comment_Added', function(data){
-						//data handling 
-					});
-		
-					//To access locale
-					App.locale;
-		
-					//To access localresources
-					App.localeResource            
-						
-					//To Know more on these, please read the documentation
-				*/
     });
-  });
+  }, []); 
 
-  if (loading) {
-    return <p>Loading...</p>;
-  } else {
-    return (
-      <>
-        <h2>React Powered!</h2>
-        <p role="content">Email: {email}</p>
-      </>
-    );
-  }
+  return (
+    <>
+      <h2>Cadastro de empresa</h2>
+      <p role="content">OrgID: {orgID}</p>
+	  <input value={clientID} onChange={handleClientID} placeholder='client ID' type="text" />
+	  <input value={clientSecret} onChange={handleClientSecret} placeholder='client Secret' type="text" />
+      <button onClick={clickRequest}>Cadastrar</button>
+    </>
+  );
 };
 
 export default App;
