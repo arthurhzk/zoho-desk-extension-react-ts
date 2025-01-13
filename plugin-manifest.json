@@ -3,7 +3,7 @@
   "service": "DESK",
   "storage": false,
   "type": "personal",
-  "whiteListedDomains": [],
+  "whiteListedDomains": ["http://localhost:3002"],
   "modules": {
     "widgets": [
       {

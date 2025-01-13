@@ -8,22 +8,16 @@ const App = () => {
   const [clientSecret, setClientSecret] = useState('')
 
   const clickRequest = async () => {
-	setLoading(true)
+    setLoading(true);
     try {
-      await axios.post("http://localhost:3002/credentials",{
-		data:{
-			orgID: orgID,
-			clientID: clientID,
-			clientSecret: clientSecret
-		}
-	  });
+      const response = await axios.get(`http://localhost:3002/credentials/client_id=${clientID}/client_secret=${clientSecret}/org_id=${orgID}`);
+      console.log("Resposta do servidor:", response.data);
     } catch (error) {
-      console.error("Erro ao fazer a requisição:");
-    } finally{
-		setLoading(false)
-	}
+      console.error("Erro ao fazer a requisição:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-
   const handleClientID = (event: React.ChangeEvent<HTMLInputElement>) => {
     setClientID(event.target.value);
   };
