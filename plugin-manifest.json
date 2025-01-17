@@ -3,7 +3,7 @@
   "service": "DESK",
   "storage": false,
   "type": "personal",
-  "whiteListedDomains": ["http://localhost:3002"],
+  "whiteListedDomains": ["http://localhost:4001"],
   "modules": {
     "widgets": [
       {
@@ -16,7 +16,7 @@
     ]
   },
   "cspDomains": {
-    "connect-src": ["http://localhost:3002"]
+    "connect-src": ["http://localhost:4001"]
   },
   "zohoAuthorisation": {},
   "connectors": [],

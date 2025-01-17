@@ -18,7 +18,7 @@ var { moduleSupport } = manifest;
 process.env.PWD = process.env.PWD || process.cwd();
 
 var expressApp = express();
-var port = 5067;
+var port = 5068;
 
 if (moduleSupport) {
   var devMiddleware = require('webpack-dev-middleware');
