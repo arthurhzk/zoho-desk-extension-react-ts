@@ -20,7 +20,7 @@ const App = () => {
 
     try {
  
-      const response = await axios.get(`http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/1234/code/${code}`);
+      const response = await axios.get(`http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}/code/${code}`);
       console.log("Resposta do servidor:", response.data);
       setTokenData(JSON.stringify(response.data))
     } catch (error) {
