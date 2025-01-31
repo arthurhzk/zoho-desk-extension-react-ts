@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AppContainer = styled.div`
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffe600;
+  background-color: #f7f7f7;
   color: #333;
   min-height: 100vh;
   display: flex;

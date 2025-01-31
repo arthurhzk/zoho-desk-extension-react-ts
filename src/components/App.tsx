@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Input } from './input';
+import { Navbar } from './navbar/navbar'; 
+import Logo from './logoLogin/logo';  
 import { Button } from './button';
 import { AppContainer } from './app-container';
-import { Title } from './title';
-
+import Footer from './footer/footer'; 
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [orgID, setOrgID] = useState('');
@@ -13,13 +14,9 @@ const App = () => {
   const [code, setAccessCode] = useState('')
   const [tokenData, setTokenData] = useState('')
 
-
   const signCompanyData = async () => {
     setLoading(true);
- 
-
     try {
- 
       const response = await axios.get(`http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}/code/${code}`);
       console.log("Resposta do servidor:", response.data);
       setTokenData(JSON.stringify(response.data))
@@ -43,7 +40,7 @@ const App = () => {
     setClientSecret(event.target.value);
   };
 
-  const handleAccessCode = (event:React.ChangeEvent<HTMLInputElement>) => {
+  const handleAccessCode = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAccessCode(event.target.value)
   }
 
@@ -58,8 +55,10 @@ const App = () => {
 
   return (
     <AppContainer>
-      <Title>Z-Plugin</Title>
-      <Title>Mercado Livre</Title>
+      <Navbar />
+      
+      <Logo />  
+      
       <Input
         value={clientID}
         onChange={handleClientID}
@@ -72,19 +71,22 @@ const App = () => {
         placeholder="Client Secret"
         type="text"
       />
-        <Input
+      <Input
         value={code}
         onChange={handleAccessCode}
         placeholder="Code"
         type="text"
       />
-      <Button onClick={generateAccessCode} disabled={loading}> {loading ? "Carregando..." : "Buscar Access Code"}</Button>
+      <Button onClick={generateAccessCode} disabled={loading}>
+        {loading ? "Carregando..." : "Buscar Access Code"}
+      </Button>
       <Button onClick={signCompanyData} disabled={loading}>
         {loading ? "Carregando..." : "Cadastrar"}
       </Button>
 
       <h1>{tokenData}</h1>
-
+      
+      <Footer />
     </AppContainer>
   );
 };

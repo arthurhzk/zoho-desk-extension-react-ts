@@ -3,7 +3,7 @@
   "service": "DESK",
   "storage": false,
   "type": "personal",
-  "whiteListedDomains": ["http://localhost:4001"],
+  "whiteListedDomains": ["https://fc2b-2804-30c-c2d-5900-b825-2513-fe0f-3db9.ngrok-free.app"],
   "modules": {
     "widgets": [
       {
@@ -18,7 +18,18 @@
   "cspDomains": {
     "connect-src": ["http://localhost:4001"]
   },
-  "zohoAuthorisation": {},
+  "zohoAuthorisation": {
+    "type": "connectors",
+    "connectionLinkName": "zohodeskextensionml",
+    "connectionName": "ZohoDeskExtensionMl",
+    "serviceName": "zlabs_integration",
+    "userAccess": true,
+    "isUserDefinedService": false,
+    "sharedBy": "666343010",
+    "scope": [
+      "Desk.basic.ALL"
+    ]
+  },
   "connectors": [],
   "config": [],
   "moduleSupport": true
