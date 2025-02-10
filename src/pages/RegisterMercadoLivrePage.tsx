@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { Input } from './input';
-import { Navbar } from './navbar/navbar'; 
-import Logo from './logoLogin/logo';  
-import { Button } from './button';
-import { AppContainer } from './app-container';
-import Footer from './footer/footer'; 
-const App = () => {
+import { AppContainer } from '../components/app-container';
+import { Button } from '../components/button';
+import Footer from '../components/footer/footer';
+import { Input } from '../components/input';
+import Logo from '../components/logoLogin/logo';
+import { Navbar } from '../components/navbar/navbar';
+
+const RegisterMercadoLivrePage = () => {
   const [loading, setLoading] = useState(false);
+
   const [orgID, setOrgID] = useState('');
+  const [departmentID, setDepartmentID] = useState("")
   const [clientID, setClientID] = useState('');
   const [clientSecret, setClientSecret] = useState('');
   const [code, setAccessCode] = useState('')
   const [tokenData, setTokenData] = useState('')
+
+
+  const findOrganization = async ()=>{}
+
+
+
+
 
   const signCompanyData = async () => {
     setLoading(true);
@@ -32,6 +42,10 @@ const App = () => {
       window.open(`https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${clientID}&redirect_uri=${url}`)
   }
 
+
+  
+  
+
   const handleClientID = (event: React.ChangeEvent<HTMLInputElement>) => {
     setClientID(event.target.value);
   };
@@ -47,14 +61,18 @@ const App = () => {
   useEffect(() => {
     ZOHODESK.extension.onload().then(() => {
       setLoading(false);
+
+      
       ZOHODESK.get('portal.id').then((data) => {
         setOrgID(data['portal.id']);
       });
+
     });
   }, []);
 
   return (
     <AppContainer>
+
       <Navbar />
       
       <Logo />  
@@ -77,18 +95,16 @@ const App = () => {
         placeholder="Code"
         type="text"
       />
+     
       <Button onClick={generateAccessCode} disabled={loading}>
         {loading ? "Carregando..." : "Buscar Access Code"}
       </Button>
       <Button onClick={signCompanyData} disabled={loading}>
         {loading ? "Carregando..." : "Cadastrar"}
       </Button>
-
-      <h1>{tokenData}</h1>
-      
       <Footer />
     </AppContainer>
   );
 };
 
-export default App;
+export default RegisterMercadoLivrePage;

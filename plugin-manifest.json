@@ -3,7 +3,10 @@
   "service": "DESK",
   "storage": false,
   "type": "personal",
-  "whiteListedDomains": ["https://fc2b-2804-30c-c2d-5900-b825-2513-fe0f-3db9.ngrok-free.app"],
+  "whiteListedDomains": [
+    "http://localhost:4001",
+    "https://api.open-meteo.com/v1/forecast"
+  ],
   "modules": {
     "widgets": [
       {
@@ -16,7 +19,10 @@
     ]
   },
   "cspDomains": {
-    "connect-src": ["http://localhost:4001"]
+    "connect-src": [
+      "http://localhost:4001",
+      "https://api.open-meteo.com/v1/forecast"
+    ]
   },
   "zohoAuthorisation": {
     "type": "connectors",
@@ -26,9 +32,7 @@
     "userAccess": true,
     "isUserDefinedService": false,
     "sharedBy": "666343010",
-    "scope": [
-      "Desk.basic.ALL"
-    ]
+    "scope": ["Desk.basic.ALL"]
   },
   "connectors": [],
   "config": [],
