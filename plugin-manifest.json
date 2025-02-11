@@ -3,10 +3,7 @@
   "service": "DESK",
   "storage": false,
   "type": "personal",
-  "whiteListedDomains": [
-    "http://localhost:4001",
-    "https://api.open-meteo.com/v1/forecast"
-  ],
+  "whiteListedDomains": ["http://localhost:4001"],
   "modules": {
     "widgets": [
       {
@@ -19,10 +16,7 @@
     ]
   },
   "cspDomains": {
-    "connect-src": [
-      "http://localhost:4001",
-      "https://api.open-meteo.com/v1/forecast"
-    ]
+    "connect-src": ["http://localhost:4001"]
   },
   "zohoAuthorisation": {
     "type": "connectors",

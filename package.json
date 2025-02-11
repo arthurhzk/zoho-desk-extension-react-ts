@@ -1,1 +1,47 @@
-{"name":"zoho-desk-extension-react-ts","version":"1.0.0","private":true,"scripts":{"typecheck":"tsc --noEmit","start":"node server/index.js","build":"webpack","prepack":"node ./prepack.js","test":"vitest"},"dependencies":{"@svgr/webpack":"^8.1.0","axios":"^1.7.9","portfinder":"^1.0.25","react":"^18.2.0","react-dom":"^18.2.0","react-icons":"^5.4.0","react-router-dom":"^7.1.5","styled-components":"^6.1.14"},"devDependencies":{"@testing-library/jest-dom":"^6.1.4","@testing-library/react":"^14.1.2","@types/node":"^20.10.0","@types/react":"^18.2.38","@types/react-dom":"^18.2.17","body-parser":"^1.19.2","chalk":"4.1.2","css-loader":"^6.8.1","errorhandler":"^1.5.1","express":"^4.17.3","file-loader":"^6.2.0","jsdom":"^22.1.0","morgan":"^1.10.0","serve-index":"^1.9.1","style-loader":"^3.3.1","ts-loader":"^9.5.1","typescript":"^5.3.2","url-loader":"^4.1.1","vitest":"^0.34.6","webpack":"^5.97.1","webpack-cli":"^5.1.1","webpack-dev-middleware":"^6.1.1"}}
+{
+  "name": "zoho-desk-extension-react-ts",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "start": "node server/index.js",
+    "build": "webpack",
+    "prepack": "node ./prepack.js",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "portfinder": "^1.0.25",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.4.0",
+    "react-router-dom": "^7.1.5",
+    "styled-components": "^6.1.14"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.2",
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.38",
+    "@types/react-dom": "^18.2.17",
+    "body-parser": "^1.19.2",
+    "chalk": "4.1.2",
+    "css-loader": "^6.8.1",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.3",
+    "file-loader": "^6.2.0",
+    "jsdom": "^22.1.0",
+    "morgan": "^1.10.0",
+    "serve-index": "^1.9.1",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "url-loader": "^4.1.1",
+    "vitest": "^0.34.6",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-middleware": "^6.1.1"
+  }
+}
