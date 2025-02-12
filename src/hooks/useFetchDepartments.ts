@@ -24,7 +24,7 @@ const useFetchDepartments = (orgID: string) => {
 
   useEffect(() => {
     fetchDepartments();
-  }, [orgID]);
+  }, []);
 
   return { loading, departments, error, fetchDepartments };
 };

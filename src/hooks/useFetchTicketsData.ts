@@ -14,17 +14,13 @@ const useFetchTickets = (orgID: string) => {
       const response = await axios.get(
         `http://localhost:4001/api/fetchtickets/${orgID}`
       );
-      setTickets(response.data.data.tickets.data);
+      setTickets(response.data.data.data);
     } catch (error) {
       setError('Erro ao fazer a requisição. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchTickets();
-  }, [orgID]);
 
   return { loading, tickets, error, fetchTickets };
 };

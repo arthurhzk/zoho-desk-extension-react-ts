@@ -6,6 +6,7 @@ import { Navbar } from '@/components/navbar/navbar';
 import RegisterMercadoLivrePage from '@/pages/RegisterMercadoLivrePage';
 import RegisterZohoPage from '@/pages/RegisterZohoPage';
 import RegisterDepartmentPage from '@/pages/RegisterDepartmentPage';
+import TicketsPage from '@/pages/TicketsPage';
 import useZohoOrgID from '@/hooks/useZohoOrgID';
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -27,6 +28,7 @@ const App = () => {
         {counter === 0 && <RegisterZohoPage orgID={orgID} />}
         {counter === 1 && <RegisterMercadoLivrePage orgID={orgID} />}
         {counter === 2 && <RegisterDepartmentPage orgID={orgID} />}
+        {counter === 3 && <TicketsPage orgID={orgID} />}
         <div style={{ display: 'flex', gap: '5px' }}>
           <Button
             style={{ opacity: counter === 0 ? 0.5 : 1 }}
