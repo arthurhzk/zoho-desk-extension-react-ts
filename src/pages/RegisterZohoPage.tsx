@@ -1,54 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import { AppContainer } from '../components/app-container';
-import { Button } from '../components/button';
-import Footer from '../components/footer/footer';
-import { Input } from '../components/input';
-import Logo from '../components/logoLogin/logo';
-import { Navbar } from '../components/navbar/navbar';
+import React from 'react';
+import { AppContainer } from '@/components/app-container';
+import { Button } from '@/components/button';
+import Footer from '@/components/footer/footer';
+import { Input } from '@/components/input';
+import Logo from '@/components/logoLogin/logo';
+import { Navbar } from '@/components/navbar/navbar';
+import { OrgID } from '@/interfaces/OrgID';
+import useSignCompanyData from '@/hooks/useSignCompanyData';
+import useInputChange from '@/hooks/useInputChange';
 
-const RegisterZohoPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [orgID, setOrgID] = useState('');
-  const [clientID, setClientID] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
-  const [tokenData, setTokenData] = useState('')
+const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
+  const { loading, signCompanyData } = useSignCompanyData(orgID);
 
-  const signCompanyData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}`);
-      setTokenData(response.data)
-    } catch (error) {
-      console.error("Erro ao fazer a requisição:", error);
-    } finally {
-      setLoading(false);
-    }
+  const { value: clientID, handleChange: handleClientID } = useInputChange('');
+  const { value: clientSecret, handleChange: handleClientSecret } =
+    useInputChange('');
+
+  const handleRegisterClick = () => {
+    signCompanyData(clientID, clientSecret);
   };
-  const handleClientID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setClientID(event.target.value);
-  };
-
-  const handleClientSecret = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setClientSecret(event.target.value);
-  };
-
-  useEffect(() => {
-    ZOHODESK.extension.onload().then(() => {
-      setLoading(false);
-
-      
-      ZOHODESK.get('portal.id').then((data) => {
-        setOrgID(data['portal.id']);
-      });
-
-    });
-  }, []);
 
   return (
     <AppContainer>
       <Navbar />
-      <Logo />  
+      <Logo />
       <Input
         value={clientID}
         onChange={handleClientID}
@@ -61,8 +36,8 @@ const RegisterZohoPage = () => {
         placeholder="Client Secret"
         type="text"
       />
-      <Button onClick={signCompanyData} disabled={loading}>
-        {loading ? "Carregando..." : "Cadastrar"}
+      <Button onClick={handleRegisterClick} disabled={loading}>
+        {loading ? 'Carregando...' : 'Cadastrar'}
       </Button>
       <Footer />
     </AppContainer>

@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { AppContainer } from './components/app-container';
-import { Button } from './components/button';
-import Footer from './components/footer/footer';
-import { Navbar } from './components/navbar/navbar';
-import RegisterMercadoLivrePage from './pages/RegisterMercadoLivrePage';
-import RegisterZohoPage from './pages/RegisterZohoPage';
-import RegisterContactDepartmentPage from './pages/RegisterContactDepartmentPage';
+import { AppContainer } from '@/components/app-container';
+import { Button } from '@/components/button';
+import Footer from '@/components/footer/footer';
+import { Navbar } from '@/components/navbar/navbar';
+import RegisterMercadoLivrePage from '@/pages/RegisterMercadoLivrePage';
+import RegisterZohoPage from '@/pages/RegisterZohoPage';
+import RegisterDepartmentPage from '@/pages/RegisterDepartmentPage';
+import useZohoOrgID from '@/hooks/useZohoOrgID';
 const App = () => {
   const [counter, setCounter] = useState(0);
+  const { orgID } = useZohoOrgID();
 
   const handleCounter = () => {
     setCounter((prevCounter) =>
@@ -25,9 +27,9 @@ const App = () => {
     <>
       <AppContainer>
         <Navbar />
-        {counter === 0 && <RegisterMercadoLivrePage />}
-        {counter === 1 && <RegisterZohoPage />}
-        {counter === 2 && <RegisterContactDepartmentPage />}
+        {counter === 0 && <RegisterMercadoLivrePage orgID={orgID} />}
+        {counter === 1 && <RegisterZohoPage orgID={orgID} />}
+        {counter === 2 && <RegisterDepartmentPage orgID={orgID} />}
         <div style={{ display: 'flex', gap: '5px' }}>
           <Button
             style={{ opacity: counter === 0 ? 0.5 : 1 }}

@@ -1,82 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import { AppContainer } from '../components/app-container';
-import { Button } from '../components/button';
-import Footer from '../components/footer/footer';
-import { Input } from '../components/input';
-import Logo from '../components/logoLogin/logo';
-import { Navbar } from '../components/navbar/navbar';
+import React from 'react';
+import { AppContainer } from '@/components/app-container';
+import { Button } from '@/components/button';
+import useInputChange from '@/hooks/useInputChange';
+import Footer from '@/components/footer/footer';
+import { Input } from '@/components/input';
+import Logo from '@/components/logoLogin/logo';
+import { Navbar } from '@/components/navbar/navbar';
+import useFetchData from '@/hooks/useSignCompanyMercadoLivre';
+import { OrgID } from '@/interfaces/OrgID';
 
-const RegisterMercadoLivrePage = () => {
-  const [loading, setLoading] = useState(false);
+const RegisterMercadoLivrePage: React.FC<OrgID> = ({ orgID }) => {
+  const { value: clientID, handleChange: handleClientID } = useInputChange('');
+  const { value: clientSecret, handleChange: handleClientSecret } =
+    useInputChange('');
+  const { value: code, handleChange: handleAccessCode } = useInputChange('');
 
-  const [orgID, setOrgID] = useState('');
-  const [departmentID, setDepartmentID] = useState("")
-  const [clientID, setClientID] = useState('');
-  const [clientSecret, setClientSecret] = useState('');
-  const [code, setAccessCode] = useState('')
-  const [tokenData, setTokenData] = useState('')
-
-
-  const findOrganization = async ()=>{}
-
-
-
-
+  const { loading, fetchData } = useFetchData(
+    `http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}/code/${code}`
+  );
 
   const signCompanyData = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get(`http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}/code/${code}`);
-      console.log("Resposta do servidor:", response.data);
-      setTokenData(JSON.stringify(response.data))
-    } catch (error) {
-      console.error("Erro ao fazer a requisição:", error);
-    } finally {
-      setLoading(false);
-    }
+    await fetchData();
   };
 
-  const url = "https://www.google.com/"
+  const url = 'https://www.google.com/';
+
   const generateAccessCode = () => {
-      window.open(`https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${clientID}&redirect_uri=${url}`)
-  }
-
-
-  
-  
-
-  const handleClientID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setClientID(event.target.value);
+    window.open(
+      `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${clientID}&redirect_uri=${url}`
+    );
   };
-
-  const handleClientSecret = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setClientSecret(event.target.value);
-  };
-
-  const handleAccessCode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAccessCode(event.target.value)
-  }
-
-  useEffect(() => {
-    ZOHODESK.extension.onload().then(() => {
-      setLoading(false);
-
-      
-      ZOHODESK.get('portal.id').then((data) => {
-        setOrgID(data['portal.id']);
-      });
-
-    });
-  }, []);
 
   return (
     <AppContainer>
-
       <Navbar />
-      
-      <Logo />  
-      
+      <Logo />
       <Input
         value={clientID}
         onChange={handleClientID}
@@ -95,12 +53,11 @@ const RegisterMercadoLivrePage = () => {
         placeholder="Code"
         type="text"
       />
-     
       <Button onClick={generateAccessCode} disabled={loading}>
-        {loading ? "Carregando..." : "Buscar Access Code"}
+        {loading ? 'Carregando...' : 'Buscar Access Code'}
       </Button>
       <Button onClick={signCompanyData} disabled={loading}>
-        {loading ? "Carregando..." : "Cadastrar"}
+        {loading ? 'Carregando...' : 'Cadastrar'}
       </Button>
       <Footer />
     </AppContainer>

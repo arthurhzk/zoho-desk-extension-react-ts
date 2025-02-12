@@ -15,6 +15,9 @@ module.exports = (mode = 'production') => ({
   },
   mode: 'production',
   resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    },
     extensions: ['.tsx', '.ts']
   },
   module: {
