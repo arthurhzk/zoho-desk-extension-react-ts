@@ -24,8 +24,8 @@ const App = () => {
     <>
       <AppContainer>
         <Navbar />
-        {counter === 0 && <RegisterMercadoLivrePage orgID={orgID} />}
-        {counter === 1 && <RegisterZohoPage orgID={orgID} />}
+        {counter === 0 && <RegisterZohoPage orgID={orgID} />}
+        {counter === 1 && <RegisterMercadoLivrePage orgID={orgID} />}
         {counter === 2 && <RegisterDepartmentPage orgID={orgID} />}
         <div style={{ display: 'flex', gap: '5px' }}>
           <Button

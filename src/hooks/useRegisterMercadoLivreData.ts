@@ -6,11 +6,21 @@ const useRegisterMercadoLivreData = (url: string) => {
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const registerData = async () => {
+  const registerData = async (
+    clientID: string,
+    clientSecret: string,
+    orgID: string,
+    code: string
+  ) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(url);
+      const response = await axios.post(url, {
+        clientID,
+        clientSecret,
+        orgID,
+        code
+      });
       setData(response.data);
     } catch (error) {
       setError('Erro ao fazer a requisição. Por favor, tente novamente.');

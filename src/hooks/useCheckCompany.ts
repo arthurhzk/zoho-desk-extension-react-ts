@@ -14,7 +14,7 @@ const useCheckCompany = (orgID: string, company: string) => {
       if (response.status !== 200) {
         throw new Error('Erro ao fazer a requisição.');
       }
-      setData(response.data.data);
+      setData(response.data);
     } catch (error) {
       setError('Erro ao fazer a requisição. Por favor, tente novamente.');
     } finally {

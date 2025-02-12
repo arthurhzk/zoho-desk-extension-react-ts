@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppContainer } from '@/components/app-container';
 import { Button } from '@/components/button';
 import Footer from '@/components/footer/footer';
@@ -11,6 +11,11 @@ import { OrgID } from '@/interfaces/OrgID';
 const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
   const { loading, departments, error, fetchDepartments } =
     useFetchDepartments(orgID);
+
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
+
   return (
     <AppContainer>
       <Navbar />
@@ -24,7 +29,7 @@ const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
         ))}
       </Select>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <Button onClick={fetchDepartments} disabled={loading}>
+      <Button disabled={loading}>
         {loading ? 'Carregando...' : 'Cadastrar'}
       </Button>
       <Footer />

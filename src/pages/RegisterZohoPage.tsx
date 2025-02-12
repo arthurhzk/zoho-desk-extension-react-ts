@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { AppContainer } from '@/components/app-container';
 import { Button } from '@/components/button';
 import Footer from '@/components/footer/footer';
@@ -9,6 +9,7 @@ import { OrgID } from '@/interfaces/OrgID';
 import useInputChange from '@/hooks/useInputChange';
 import useCheckCompany from '@/hooks/useCheckCompany';
 import useRegisterZohoData from '@/hooks/useRegisterZohoData';
+import Loader from '@/components/loader';
 
 const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
   const registerZohoData = useRegisterZohoData(orgID);
@@ -20,30 +21,39 @@ const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
     registerZohoData.signCompanyData(clientID.value, clientSecret.value);
   };
 
+  useEffect(() => {
+    zohoData.signCompanyData();
+  }, []);
+
   return (
     <AppContainer>
       <Navbar />
       <Logo />
-      <Input
-        value={clientID.value}
-        onChange={clientID.handleChange}
-        placeholder="Client ID"
-        type="text"
-      />
-      <Input
-        value={clientSecret.value}
-        onChange={clientSecret.handleChange}
-        placeholder="Client Secret"
-        type="text"
-      />
-      <Button
-        onClick={handleRegisterClick}
-        disabled={registerZohoData.loading || zohoData.loading}
-      >
-        {registerZohoData.loading || zohoData.loading
-          ? 'Carregando...'
-          : 'Cadastrar'}
-      </Button>
+      {zohoData.loading && <Loader />}
+      {zohoData.error && (
+        <>
+          <Input
+            value={clientID.value}
+            onChange={clientID.handleChange}
+            placeholder="Client ID"
+            type="text"
+          />
+          <Input
+            value={clientSecret.value}
+            onChange={clientSecret.handleChange}
+            placeholder="Client Secret"
+            type="text"
+          />
+          <Button
+            onClick={handleRegisterClick}
+            disabled={registerZohoData.loading || zohoData.loading}
+          >
+            {registerZohoData.loading || zohoData.loading
+              ? 'Carregando...'
+              : 'Cadastrar'}
+          </Button>
+        </>
+      )}
       <Footer />
     </AppContainer>
   );
