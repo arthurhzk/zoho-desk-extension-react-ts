@@ -6,18 +6,18 @@ import { Input } from '@/components/input';
 import Logo from '@/components/logoLogin/logo';
 import { Navbar } from '@/components/navbar/navbar';
 import { OrgID } from '@/interfaces/OrgID';
-import useSignCompanyData from '@/hooks/useSignCompanyData';
 import useInputChange from '@/hooks/useInputChange';
+import useCheckCompany from '@/hooks/useCheckCompany';
+import useRegisterZohoData from '@/hooks/useRegisterZohoData';
 
 const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
-  const { loading, signCompanyData } = useSignCompanyData(orgID);
-
-  const { value: clientID, handleChange: handleClientID } = useInputChange('');
-  const { value: clientSecret, handleChange: handleClientSecret } =
-    useInputChange('');
+  const registerZohoData = useRegisterZohoData(orgID);
+  const zohoData = useCheckCompany(orgID, 'checkzoho');
+  const clientID = useInputChange('');
+  const clientSecret = useInputChange('');
 
   const handleRegisterClick = () => {
-    signCompanyData(clientID, clientSecret);
+    registerZohoData.signCompanyData(clientID.value, clientSecret.value);
   };
 
   return (
@@ -25,19 +25,24 @@ const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
       <Navbar />
       <Logo />
       <Input
-        value={clientID}
-        onChange={handleClientID}
+        value={clientID.value}
+        onChange={clientID.handleChange}
         placeholder="Client ID"
         type="text"
       />
       <Input
-        value={clientSecret}
-        onChange={handleClientSecret}
+        value={clientSecret.value}
+        onChange={clientSecret.handleChange}
         placeholder="Client Secret"
         type="text"
       />
-      <Button onClick={handleRegisterClick} disabled={loading}>
-        {loading ? 'Carregando...' : 'Cadastrar'}
+      <Button
+        onClick={handleRegisterClick}
+        disabled={registerZohoData.loading || zohoData.loading}
+      >
+        {registerZohoData.loading || zohoData.loading
+          ? 'Carregando...'
+          : 'Cadastrar'}
       </Button>
       <Footer />
     </AppContainer>

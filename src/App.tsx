@@ -10,19 +10,16 @@ import useZohoOrgID from '@/hooks/useZohoOrgID';
 const App = () => {
   const [counter, setCounter] = useState(0);
   const { orgID } = useZohoOrgID();
-
   const handleCounter = () => {
     setCounter((prevCounter) =>
       prevCounter < 3 ? prevCounter + 1 : prevCounter
     );
   };
-
   const handleCountdownCounter = () => {
     setCounter((prevCounter) =>
       prevCounter > 0 ? prevCounter - 1 : prevCounter
     );
   };
-
   return (
     <>
       <AppContainer>

@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const useFetchData = (url: string) => {
+const useRegisterMercadoLivreData = (url: string) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchData = async () => {
+  const registerData = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -19,7 +19,7 @@ const useFetchData = (url: string) => {
     }
   };
 
-  return { loading, data, error, fetchData };
+  return { loading, data, error, registerData };
 };
 
-export default useFetchData;
+export default useRegisterMercadoLivreData;

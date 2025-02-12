@@ -6,28 +6,27 @@ import Footer from '@/components/footer/footer';
 import { Input } from '@/components/input';
 import Logo from '@/components/logoLogin/logo';
 import { Navbar } from '@/components/navbar/navbar';
-import useFetchData from '@/hooks/useSignCompanyMercadoLivre';
 import { OrgID } from '@/interfaces/OrgID';
+import useRegisterMercadoLivreData from '@/hooks/useRegisterMercadoLivreData';
 
 const RegisterMercadoLivrePage: React.FC<OrgID> = ({ orgID }) => {
-  const { value: clientID, handleChange: handleClientID } = useInputChange('');
-  const { value: clientSecret, handleChange: handleClientSecret } =
-    useInputChange('');
-  const { value: code, handleChange: handleAccessCode } = useInputChange('');
+  const clientID = useInputChange('');
+  const clientSecret = useInputChange('');
+  const code = useInputChange('');
 
-  const { loading, fetchData } = useFetchData(
-    `http://localhost:4001/api/credentials/client_id/${clientID}/client_secret/${clientSecret}/org_id/${orgID}/code/${code}`
+  const { loading, registerData } = useRegisterMercadoLivreData(
+    `http://localhost:4001/api/credentials/client_id/${clientID.value}/client_secret/${clientSecret.value}/org_id/${orgID}/code/${code.value}`
   );
 
   const signCompanyData = async () => {
-    await fetchData();
+    await registerData();
   };
 
-  const url = 'https://www.google.com/';
+  const redirectURL = 'https://www.google.com/';
 
   const generateAccessCode = () => {
     window.open(
-      `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${clientID}&redirect_uri=${url}`
+      `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${clientID.value}&redirect_uri=${redirectURL}`
     );
   };
 
@@ -36,20 +35,20 @@ const RegisterMercadoLivrePage: React.FC<OrgID> = ({ orgID }) => {
       <Navbar />
       <Logo />
       <Input
-        value={clientID}
-        onChange={handleClientID}
+        value={clientID.value}
+        onChange={clientID.handleChange}
         placeholder="Client ID"
         type="text"
       />
       <Input
-        value={clientSecret}
-        onChange={handleClientSecret}
+        value={clientSecret.value}
+        onChange={clientSecret.handleChange}
         placeholder="Client Secret"
         type="text"
       />
       <Input
-        value={code}
-        onChange={handleAccessCode}
+        value={code.value}
+        onChange={code.handleChange}
         placeholder="Code"
         type="text"
       />

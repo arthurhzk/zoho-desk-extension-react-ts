@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const useSignCompanyData = (orgID: string) => {
+const useRegisterZohoData = (orgID: string) => {
   const [loading, setLoading] = useState(false);
   const [apiData, setApiData] = useState();
   const [errorMessage, setErrorMessage] = useState<string | null>();
@@ -31,4 +31,4 @@ const useSignCompanyData = (orgID: string) => {
   return { loading, apiData, errorMessage, signCompanyData };
 };
 
-export default useSignCompanyData;
+export default useRegisterZohoData;
