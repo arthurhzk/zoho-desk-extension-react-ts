@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useZohoOrgID = () => {
-  const [orgID, setOrgID] = useState<string>('666343010');
+  const [orgID, setOrgID] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
