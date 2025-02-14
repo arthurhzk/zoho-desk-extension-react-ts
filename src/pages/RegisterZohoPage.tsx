@@ -52,6 +52,9 @@ const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
               ? 'Carregando...'
               : 'Cadastrar'}
           </Button>
+          {registerZohoData.errorMessage && (
+            <h4>{registerZohoData.errorMessage}</h4>
+          )}
         </>
       )}
       <Footer />

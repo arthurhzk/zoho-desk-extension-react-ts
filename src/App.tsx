@@ -10,6 +10,7 @@ import TicketsPage from '@/pages/TicketsPage';
 import useZohoOrgID from '@/hooks/useZohoOrgID';
 import WelcomePage from '@/pages/WelcomePage';
 import useCheckCompany from './hooks/useCheckCompany';
+import ButtonContainer from '@/components/button-container';
 
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -26,7 +27,7 @@ const App = () => {
     setSign(fetchedSign);
   }, [fetchedSign]);
 
-  const onButtonClick = () => {
+  const handleSignData = () => {
     if (sign === 'Acessar') {
       setCounter(4);
     } else {
@@ -53,14 +54,14 @@ const App = () => {
       <AppContainer>
         <Navbar />
         {counter === 0 && (
-          <WelcomePage signData={onButtonClick} orgID={orgID} sign={sign} />
+          <WelcomePage signData={handleSignData} orgID={orgID} sign={sign} />
         )}
         {counter === 1 && <RegisterZohoPage orgID={orgID} />}
         {counter === 2 && <RegisterMercadoLivrePage orgID={orgID} />}
         {counter === 3 && <RegisterDepartmentPage orgID={orgID} />}
         {counter === 4 && <TicketsPage orgID={orgID} />}
         {sign !== 'Acessar' && counter > 0 && (
-          <div style={{ display: 'flex', gap: '5px' }}>
+          <ButtonContainer>
             <Button
               style={{ opacity: counter === 0 ? 0.5 : 1 }}
               disabled={counter === 0}
@@ -75,7 +76,7 @@ const App = () => {
             >
               +
             </Button>
-          </div>
+          </ButtonContainer>
         )}
       </AppContainer>
       <Footer />

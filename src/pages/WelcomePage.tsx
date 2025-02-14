@@ -6,12 +6,8 @@ import { Navbar } from '@/components/navbar/navbar';
 import { Button } from '@/components/button';
 import useCheckCompany from '@/hooks/useCheckCompany';
 import Loader from '@/components/loader';
-
-interface WelcomePageProps {
-  orgID: string;
-  sign: string;
-  signData: () => void;
-}
+import { Title } from '@/components/title';
+import { WelcomePageProps } from '@/interfaces/WelcomePage';
 
 const WelcomePage: React.FC<WelcomePageProps> = ({ orgID, sign, signData }) => {
   const { loading, signCompanyData } = useCheckCompany(orgID, 'all');
@@ -25,7 +21,7 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ orgID, sign, signData }) => {
       <Navbar />
       <Logo />
       {loading && <Loader />}
-      <h4>Bem-vindo ao Z-Plugin + Mercado Livre</h4>
+      <Title>Bem-vindo ao Z-Plugin + Mercado Livre</Title>
       <Button onClick={signData}>{sign}</Button>
       <Footer />
     </AppContainer>

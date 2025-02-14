@@ -17,7 +17,7 @@ const RegisterMercadoLivrePage: React.FC<OrgID> = ({ orgID }) => {
   const clientSecret = useInputChange('');
   const code = useInputChange('');
 
-  const { loading, registerData } = useRegisterMercadoLivreData(
+  const { loading, registerData, status } = useRegisterMercadoLivreData(
     `http://localhost:4001/api/credentials`
   );
 
@@ -68,6 +68,7 @@ const RegisterMercadoLivrePage: React.FC<OrgID> = ({ orgID }) => {
           <Button onClick={signCompanyData} disabled={loading}>
             {loading ? 'Carregando...' : 'Cadastrar'}
           </Button>
+          <h3> {status && <h4>{status}</h4>}</h3>
         </>
       )}
       <Footer />
