@@ -3,12 +3,11 @@ import axios from 'axios';
 import { Tickets } from '@/interfaces/Tickets';
 
 const useFetchTickets = (orgID: string) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [tickets, setTickets] = useState<Tickets>([]);
   const [error, setError] = useState<string | null>(null);
 
   const fetchTickets = async () => {
-    setLoading(true);
     setError(null);
     try {
       const response = await axios.get(

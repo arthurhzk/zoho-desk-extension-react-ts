@@ -13,10 +13,11 @@ const Loader = styled.div`
   animation: ${rotate360} 1s linear infinite;
   transform: translateZ(0);
 
-  border-top: 2px solid blue;
-  border-right: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 4px solid blue;
+  border: 4px solid transparent;
+  border-top: 4px solid #3498db;
+  border-right: 4px solid #f39c12;
+  border-bottom: 4px solid #e74c3c;
+  border-left: 4px solid #2ecc71;
   background: transparent;
   width: 24px;
   height: 24px;
