@@ -12,6 +12,7 @@ import useRegisterZohoData from '@/hooks/useRegisterZohoData';
 import Loader from '@/components/loader';
 import styled from 'styled-components';
 import { Title } from '@/components/title';
+import LogoZoho from '@/components/logo-zoho';
 
 const FormContainer = styled.div`
   display: flex;
@@ -57,6 +58,7 @@ const RegisterZohoPage: React.FC<OrgID> = ({ orgID }) => {
   return (
     <AppContainer>
       <Navbar />
+      <LogoZoho />
       <Logo />
       <FormContainer>
         <Title>Registrar Tokens Zoho</Title>

@@ -10,6 +10,7 @@ import { OrgID } from '@/interfaces/OrgID';
 import styled from 'styled-components';
 import Loader from '@/components/loader';
 import { Title } from '@/components/title';
+import LogoZoho from '@/components/logo-zoho';
 
 const FormContainer = styled.div`
   display: flex;
@@ -49,6 +50,7 @@ const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
   return (
     <AppContainer>
       <Navbar />
+      <LogoZoho />
       <Logo />
       <FormContainer>
         <Title>Registrar Departamento</Title>
