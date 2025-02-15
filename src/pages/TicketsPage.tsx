@@ -60,13 +60,9 @@ const TicketsPage: React.FC<OrgID> = ({ orgID }) => {
   const { fetchTickets, loading, tickets, error } = useFetchTickets(orgID);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filterTickets = tickets.filter((ticket) => ticket.status === 'Aberto');
+  const openedTickets = tickets.filter((ticket) => ticket.status === 'Aberto');
   const filterTodayTickets = tickets.filter(
     (ticket) => ticket.createdTime === new Date().toISOString().slice(0, 10)
-  );
-
-  const filteredTickets = tickets.filter((ticket) =>
-    ticket.subject.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   useEffect(() => {
@@ -76,11 +72,11 @@ const TicketsPage: React.FC<OrgID> = ({ orgID }) => {
   const dataFiels = [
     {
       message: 'Quantidade de perguntas realizadas:',
-      value: filteredTickets.length
+      value: tickets.length
     },
     {
       message: 'Quantidade de tickets em aberto:',
-      value: filterTickets.length
+      value: openedTickets.length
     },
     {
       message: 'Quantidade de tickets criados hoje:',
@@ -106,10 +102,10 @@ const TicketsPage: React.FC<OrgID> = ({ orgID }) => {
       {!loading && !error && (
         <StatsContainer>
           {dataFiels.map((field) => (
-          <StatItem>
+            <StatItem>
               <StatLabel>{field.message}</StatLabel>
               {field.value}
-          </StatItem>
+            </StatItem>
           ))}
         </StatsContainer>
       )}

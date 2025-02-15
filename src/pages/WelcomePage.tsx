@@ -25,11 +25,6 @@ const WelcomeContainer = styled.div`
   max-width: 400px;
 `;
 
-const ZohoImage = styled.img`
-  width: 100px;
-  margin-bottom: 20px;
-`;
-
 const WelcomeTitle = styled(Title)`
   font-size: 1.5em;
   color: #0b72b9; /* Cor Azul da Zoho */
@@ -40,20 +35,6 @@ const WelcomeMessage = styled.p`
   font-size: 1em;
   color: #666;
   margin-bottom: 20px;
-`;
-
-const StyledButton = styled(Button)`
-  padding: 10px 20px;
-  font-size: 1em;
-  background-color: #0b72b9; /* Cor Azul da Zoho */
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-  &:hover {
-    background-color: #094a7a; /* Cor Azul Escuro da Zoho */
-  }
 `;
 
 const WelcomePage: React.FC<WelcomePageProps> = ({ orgID, sign, signData }) => {
