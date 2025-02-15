@@ -20,3 +20,11 @@ export const Select = styled.select`
     padding: 0px 2px 1px;
   }
 `;
+
+export const StyledSelect = styled(Select)`
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;

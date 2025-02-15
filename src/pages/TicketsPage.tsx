@@ -8,6 +8,7 @@ import Loader from '@/components/loader';
 import Footer from '@/components/footer/footer';
 import styled from 'styled-components';
 import LogoZoho from '@/components/logo-zoho';
+import ErrorMessage from '@/components/error-message';
 
 const StatsContainer = styled.div`
   margin: 20px 0;
@@ -32,13 +33,6 @@ const StatLabel = styled.span`
   color: #666;
   font-weight: bold;
   margin-right: 5px;
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  font-weight: bold;
-  text-align: center;
-  margin: 20px 0;
 `;
 
 const SearchBar = styled.input`
@@ -79,6 +73,21 @@ const TicketsPage: React.FC<OrgID> = ({ orgID }) => {
     fetchTickets();
   }, []);
 
+  const dataFiels = [
+    {
+      message: 'Quantidade de perguntas realizadas:',
+      value: filteredTickets.length
+    },
+    {
+      message: 'Quantidade de tickets em aberto:',
+      value: filterTickets.length
+    },
+    {
+      message: 'Quantidade de tickets criados hoje:',
+      value: filterTodayTickets.length
+    }
+  ];
+
   return (
     <AppContainer>
       <Navbar />
@@ -96,18 +105,12 @@ const TicketsPage: React.FC<OrgID> = ({ orgID }) => {
       {error && <ErrorMessage>Erro ao carregar tickets</ErrorMessage>}
       {!loading && !error && (
         <StatsContainer>
+          {dataFiels.map((field) => (
           <StatItem>
-            <StatLabel>Quantidade de perguntas realizadas:</StatLabel>{' '}
-            {filteredTickets.length}
+              <StatLabel>{field.message}</StatLabel>
+              {field.value}
           </StatItem>
-          <StatItem>
-            <StatLabel>Quantidade de tickets em aberto:</StatLabel>{' '}
-            {filterTickets.length}
-          </StatItem>
-          <StatItem>
-            <StatLabel>Quantidade de tickets criados hoje:</StatLabel>{' '}
-            {filterTodayTickets.length}
-          </StatItem>
+          ))}
         </StatsContainer>
       )}
       <RefreshButton onClick={fetchTickets}>Atualizar</RefreshButton>
