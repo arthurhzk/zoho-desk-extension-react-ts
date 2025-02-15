@@ -21,58 +21,59 @@ const App = () => {
 
   useEffect(() => {
     signCompanyData();
-  }, []);
-
-  useEffect(() => {
     setSign(fetchedSign);
   }, [fetchedSign]);
 
   const handleSignData = () => {
-    if (sign === 'Acessar') {
-      setCounter(4);
-    } else {
-      handleCounter();
+    setCounter(sign === 'Acessar' ? 4 : Math.min(counter + 1, 3));
+  };
+
+  const handleCounter = (increment: boolean) => {
+    setCounter((prevCounter) => {
+      const newCounter = increment
+        ? Math.min(prevCounter + 1, 4)
+        : Math.max(prevCounter - 1, 0);
+      return newCounter;
+    });
+  };
+
+  const renderPage = () => {
+    switch (counter) {
+      case 0:
+        return (
+          <WelcomePage signData={handleSignData} orgID={orgID} sign={sign} />
+        );
+      case 1:
+        return <RegisterZohoPage orgID={orgID} />;
+      case 2:
+        return <RegisterMercadoLivrePage orgID={orgID} />;
+      case 3:
+        return <RegisterDepartmentPage orgID={orgID} />;
+      case 4:
+        return <TicketsPage orgID={orgID} />;
+      default:
+        return 0;
     }
-  };
-
-  const handleCounter = () => {
-    setCounter((prevCounter) => {
-      const newCounter = prevCounter < 3 ? prevCounter + 1 : prevCounter;
-      return newCounter;
-    });
-  };
-
-  const handleCountdownCounter = () => {
-    setCounter((prevCounter) => {
-      const newCounter = prevCounter > 0 ? prevCounter - 1 : prevCounter;
-      return newCounter;
-    });
   };
 
   return (
     <>
       <AppContainer>
         <Navbar />
-        {counter === 0 && (
-          <WelcomePage signData={handleSignData} orgID={orgID} sign={sign} />
-        )}
-        {counter === 1 && <RegisterZohoPage orgID={orgID} />}
-        {counter === 2 && <RegisterMercadoLivrePage orgID={orgID} />}
-        {counter === 3 && <RegisterDepartmentPage orgID={orgID} />}
-        {counter === 4 && <TicketsPage orgID={orgID} />}
+        {renderPage()}
         {sign !== 'Acessar' && counter > 0 && (
           <ButtonContainer>
             <Button
               style={{ opacity: counter === 0 ? 0.5 : 1 }}
               disabled={counter === 0}
-              onClick={handleCountdownCounter}
+              onClick={() => handleCounter(false)}
             >
               -
             </Button>
             <Button
-              style={{ opacity: counter === 3 ? 0.5 : 1 }}
+              style={{ opacity: counter === 4 ? 0.5 : 1 }}
               disabled={counter === 4}
-              onClick={handleCounter}
+              onClick={() => handleCounter(true)}
             >
               +
             </Button>
