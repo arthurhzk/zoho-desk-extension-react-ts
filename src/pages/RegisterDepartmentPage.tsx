@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppContainer } from '@/components/app-container';
 import { Button } from '@/components/button';
 import Footer from '@/components/footer/footer';
@@ -42,6 +42,17 @@ const ErrorMessage = styled.p`
 const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
   const { loading, departments, error, fetchDepartments } =
     useFetchDepartments(orgID);
+  const [selectedDepartment, setSelectedDepartment] = useState<string>('');
+  const [selectProduct, setSelectProduct] = useState<string>('');
+
+  const handleSelectOption = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDepartment(event.target.value);
+  };
+
+  const handleSelectProduct = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectProduct(event.target.value);
+    console.log(event.target.value);
+  };
 
   useEffect(() => {
     fetchDepartments();
@@ -57,7 +68,10 @@ const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
         {loading && <Loader />}
         {!loading && (
           <>
-            <StyledSelect>
+            <StyledSelect
+              onChange={handleSelectOption}
+              value={selectedDepartment}
+            >
               {departments.map((department) => (
                 <option key={department.id} value={department.id}>
                   {department.name}
@@ -70,6 +84,11 @@ const RegisterDepartmentPage: React.FC<OrgID> = ({ orgID }) => {
             </Button>
           </>
         )}
+        <Title>Registrar produtos no DESK?</Title>
+        <StyledSelect onChange={handleSelectProduct} value={selectProduct}>
+          <option value="Não">Não</option>
+          <option value="Sim">Sim</option>
+        </StyledSelect>
       </FormContainer>
       <Footer />
     </AppContainer>
